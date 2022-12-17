@@ -7,7 +7,7 @@ export default function () {
   const [albums, setAlbums] = useState([]);
 
   useEffect(() => {
-    fetch(`http://172.20.10.2:4000/albums`)
+    fetch(`http://localhost:4001/albums`)
       .then((response) => response.json())
       .then((data) => setAlbums(data));
   }, []);

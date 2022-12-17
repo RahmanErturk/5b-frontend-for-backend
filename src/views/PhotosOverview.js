@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import PhotoPreview from "../compontents/PhotoPreview";
 
-export default function () {
-  const [photos, setPhotos] = useState([]);
+import { photoAppContext } from "../Context/PhotoProvider";
 
-  useEffect(() => {
-    fetch("http://172.20.10.2:4000/photos")
-      .then((res) => res.json())
-      .then((data) => setPhotos(data));
-  }, []);
+export default function () {
+  const { getAllPhotos, photos, removePhoto } = useContext(photoAppContext);
+
+  useEffect(getAllPhotos, []);
 
   return (
     <Container>
@@ -19,6 +17,13 @@ export default function () {
         {photos.map((p, i) => (
           <Col key={i}>
             <PhotoPreview photo={p} />
+            <Button
+              className="mt-1 mb-4"
+              style={{ display: "block" }}
+              onClick={() => removePhoto(p.id, getAllPhotos)}
+            >
+              Remove
+            </Button>
           </Col>
         ))}
       </Row>
