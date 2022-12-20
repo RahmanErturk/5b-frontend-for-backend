@@ -6,6 +6,7 @@ import Album from "./views/Album";
 import AlbumsOverview from "./views/AlbumsOverview";
 import PhotosOverview from "./views/PhotosOverview";
 import PhotoProvider from "./Context/PhotoProvider";
+import "./styles/main.scss";
 
 function App() {
   return (

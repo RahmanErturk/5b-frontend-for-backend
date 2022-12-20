@@ -3,13 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { photoAppContext } from "../Context/PhotoProvider";
 
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, OverlayTrigger, Popover } from "react-bootstrap";
 
 export default function () {
   const { photoId } = useParams();
   const navigate = useNavigate();
 
-  const { getAllPhotos } = useContext(photoAppContext);
+  const { getAllPhotos, popover } = useContext(photoAppContext);
 
   const [photo, setPhoto] = useState({});
 
@@ -47,9 +47,22 @@ export default function () {
   };
 
   return (
-    <Container>
-      <img src={photo.url} />
-      <Button onClick={removePhoto}>Remove</Button>
+    <Container className="d-flex justify-content-center">
+      <div>
+        <img style={{ maxWidth: "100%", height: "100%" }} src={photo.url} />
+        <div className="my-3">
+          <Button onClick={removePhoto}>Remove</Button>
+          <OverlayTrigger
+            trigger="click"
+            placement="right"
+            overlay={popover(photoId)}
+          >
+            <Button className="mx-5" variant="success">
+              Add to Album
+            </Button>
+          </OverlayTrigger>
+        </div>
+      </div>
     </Container>
   );
 }

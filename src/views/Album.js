@@ -7,7 +7,7 @@ import { photoAppContext } from "../Context/PhotoProvider";
 
 export default function () {
   const { albumId } = useParams();
-  const { removePhoto, getAlbumPhotos, album, setAlbum, albumPhotos } =
+  const { getAlbumPhotos, album, setAlbum, albumPhotos } =
     useContext(photoAppContext);
 
   useEffect(() => {
@@ -17,6 +17,22 @@ export default function () {
   }, [albumId]);
 
   useEffect(getAlbumPhotos, [album]);
+
+  const removeFromAlbum = (id) => {
+    const index = album.photos.findIndex((a) => a === id);
+
+    const updatedAlbumPhotos = album.photos.splice(index, 1);
+
+    fetch(`http://localhost:4001/albums/${album.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        photos: [...album.photos],
+      }),
+    }).then((res) =>
+      res.status === 202 ? getAlbumPhotos() : console.error(res.status)
+    );
+  };
 
   return (
     <Container>
@@ -28,9 +44,9 @@ export default function () {
             <Button
               className="mt-1 mb-4"
               style={{ display: "block" }}
-              onClick={() => removePhoto(p.id, getAlbumPhotos)}
+              onClick={() => removeFromAlbum(p.id)}
             >
-              Remove
+              Remove from {album.name}
             </Button>
           </Col>
         ))}

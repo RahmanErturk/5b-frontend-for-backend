@@ -31,10 +31,31 @@ h1 {
 }
 
 .img-preview {
-    margin-bottom: 20px;
-    height: 350px;
-    width: auto;
-    img {
-      height: 100%;
-    }
+  margin-bottom: 20px;
+  height: 350px;
+  width: auto;
+  img {
+    height: 100%;
+  }
+}
+
+.popover-item {
+  width: 100%;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.popover-item:hover {
+  background-color: rgb(219, 219, 219);
+}
+
+.img-preview {
+  width: 350px;
+  height: 350px;
+}
+
+.img-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
