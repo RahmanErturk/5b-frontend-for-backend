@@ -1,22 +1,24 @@
-import { useContext } from "react";
-
-import { Container, Row, Col, Button, OverlayTrigger } from "react-bootstrap";
-import PhotoPreview from "../compontents/PhotoPreview";
+import { useContext, useState, useEffect } from "react";
 
 import { photoAppContext } from "../Context/PhotoProvider";
 
+import PhotoPreview from "../compontents/PhotoPreview";
+
+import { Container, Row, Col, Button, OverlayTrigger } from "react-bootstrap";
 import LikeBtn from "@mui/icons-material/FavoriteBorder";
 import FilledLikeBtn from "@mui/icons-material/Favorite";
 
-export default function () {
+export default function LikedPhotos() {
   const { getAllPhotos, photos, removePhoto, popover, likePhoto } =
     useContext(photoAppContext);
 
+  const likedPhotos = photos.filter((photo) => photo.isLiked === true);
+
   return (
     <Container>
-      <h2 className="album-title">Alle Fotos</h2>
+      <h2 className="album-title">Liked Photos</h2>
       <Row>
-        {photos.map((p) => (
+        {likedPhotos.map((p) => (
           <Col key={p.id} className="mb-5">
             <PhotoPreview className="photos" photo={p} />
             <OverlayTrigger

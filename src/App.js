@@ -6,6 +6,8 @@ import Album from "./views/Album";
 import AlbumsOverview from "./views/AlbumsOverview";
 import PhotosOverview from "./views/PhotosOverview";
 import PhotoProvider from "./Context/PhotoProvider";
+import AlbumPhoto from "./views/AlbumPhoto";
+import LikedPhotos from "./views/LikedPhotos";
 import "./styles/main.scss";
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
             <Route path="/photos" element={<PhotosOverview />} />
             <Route path="/albums/:albumId" element={<Album />} />
             <Route path="/albums/" element={<AlbumsOverview />} />
+            <Route path="/albums/:albumId/:photoId" element={<AlbumPhoto />} />
+            <Route path="/liked-photos" element={<LikedPhotos />} />
           </Routes>
         </PhotoProvider>
       </BrowserRouter>

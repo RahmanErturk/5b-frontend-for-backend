@@ -11,11 +11,12 @@ export default function PhotoProvider({ children }) {
   const [albumPhotos, setAlbumPhotos] = useState([]);
   const [allAlbums, setAllAlbums] = useState([]);
 
-  useEffect(() => {
+  const getAllAlbums = () => {
     fetch(`http://localhost:4001/albums`)
       .then((response) => response.json())
       .then((data) => setAllAlbums(data));
-  }, []);
+  };
+  useEffect(getAllAlbums, []);
 
   const getAllPhotos = () => {
     // fetch("/api/photos") und beim package.json => proxy: "http://http://localhost:4001, am Ende npm run build "
@@ -66,6 +67,24 @@ export default function PhotoProvider({ children }) {
     );
   };
 
+  const likePhoto = (likeId) => {
+    // const indexLike = like.findIndex((id) => id === likeId);
+    // indexLike < 0 ? like.push(likeId) : like.splice(indexLike, 1);
+    // setLike(like);
+
+    const likedPhoto = photos.findIndex((p) => p.id === likeId);
+
+    fetch(`http://localhost:4001/photos/${likeId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        isLiked: !photos[likedPhoto].isLiked,
+      }),
+    }).then((res) =>
+      res.status === 202 ? getAllPhotos() : console.error(res.status)
+    );
+  };
+
   const popover = (idOfPhoto) => {
     return (
       <Popover id="popover-basic">
@@ -101,6 +120,8 @@ export default function PhotoProvider({ children }) {
         setAlbumPhotos,
         allAlbums,
         popover,
+        likePhoto,
+        getAllAlbums,
       }}
     >
       {children}
