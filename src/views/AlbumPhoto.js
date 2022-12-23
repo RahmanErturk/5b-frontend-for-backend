@@ -19,7 +19,7 @@ export default function AlbumPhoto() {
   const [photo, setPhoto] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:4001/photos/${albumPhotoId}`)
+    fetch(`/api/photos/${albumPhotoId}`)
       .then((response) => response.json())
       .then((data) => setPhoto(data));
   }, [photoId]);
@@ -35,7 +35,7 @@ export default function AlbumPhoto() {
       1
     );
 
-    fetch(`http://localhost:4001/albums/${+albumId}`, {
+    fetch(`/api/albums/${+albumId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

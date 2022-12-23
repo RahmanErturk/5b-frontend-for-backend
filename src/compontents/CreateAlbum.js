@@ -10,7 +10,7 @@ export default function CreateAlbum() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:4001/albums`, {
+    fetch(`/api/albums`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -12,7 +12,7 @@ export default function PhotoProvider({ children }) {
   const [allAlbums, setAllAlbums] = useState([]);
 
   const getAllAlbums = () => {
-    fetch(`http://localhost:4001/albums`)
+    fetch(`/api/albums`)
       .then((response) => response.json())
       .then((data) => setAllAlbums(data));
   };
@@ -20,7 +20,7 @@ export default function PhotoProvider({ children }) {
 
   const getAllPhotos = () => {
     // fetch("/api/photos") und beim package.json => proxy: "http://http://localhost:4001, am Ende npm run build "
-    fetch("http://localhost:4001/photos")
+    fetch("/api/photos")
       .then((res) => res.json())
       .then((data) => setPhotos(data));
   };
@@ -28,7 +28,7 @@ export default function PhotoProvider({ children }) {
   useEffect(getAllPhotos, []);
 
   const getAlbumPhotos = () => {
-    fetch(`http://localhost:4001/photos`)
+    fetch(`/api/photos`)
       .then((response) => response.json())
       .then((data) => {
         setAlbumPhotos(
@@ -42,7 +42,7 @@ export default function PhotoProvider({ children }) {
   };
 
   const removePhoto = (id, getData) => {
-    fetch(`http://localhost:4001/photos/${id}`, {
+    fetch(`/api/photos/${id}`, {
       method: "DELETE",
     }).then((res) =>
       res.status === 202 ? getData() : console.error(res.status)
@@ -56,7 +56,7 @@ export default function PhotoProvider({ children }) {
     if (allAlbums[index].photos.includes(+idOfPhoto))
       return alert(`${allAlbums[index].name} already has the picture.`);
 
-    fetch(`http://localhost:4001/albums/${id}`, {
+    fetch(`/api/albums/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -74,7 +74,7 @@ export default function PhotoProvider({ children }) {
 
     const likedPhoto = photos.findIndex((p) => p.id === likeId);
 
-    fetch(`http://localhost:4001/photos/${likeId}`, {
+    fetch(`/api/photos/${likeId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

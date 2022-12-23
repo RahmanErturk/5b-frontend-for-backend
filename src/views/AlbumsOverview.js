@@ -8,7 +8,7 @@ export default function () {
   const { allAlbums, getAllAlbums } = useContext(photoAppContext);
 
   const deleteAlbum = (id) => {
-    fetch(`http://localhost:4001/albums/${id}`, {
+    fetch(`/api/albums/${id}`, {
       method: "DELETE",
     }).then((res) =>
       res.status === 202 ? getAllAlbums() : console.error(res.status)

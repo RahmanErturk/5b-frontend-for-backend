@@ -18,7 +18,7 @@ export default function () {
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:4001/albums/${albumId}`)
+    fetch(`/api/albums/${albumId}`)
       .then((res) => res.json())
       .then((data) => setAlbum(data));
   }, [albumId]);
@@ -30,7 +30,7 @@ export default function () {
 
     const updatedAlbumPhotos = album.photos.splice(index, 1);
 
-    fetch(`http://localhost:4001/albums/${albumId}`, {
+    fetch(`/api/albums/${albumId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -44,7 +44,7 @@ export default function () {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:4001/albums/${album.id}`, {
+    fetch(`/api/albums/${album.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -33,13 +33,13 @@ export default function () {
    */
 
   useEffect(() => {
-    fetch(`http://localhost:4001/photos/${photoId}`)
+    fetch(`/api/photos/${photoId}`)
       .then((response) => response.json())
       .then((data) => setPhoto(data));
   }, [photoId]);
 
   const removePhoto = () => {
-    fetch(`http://localhost:4001/photos/${photoId}`, {
+    fetch(`/api/photos/${photoId}`, {
       method: "DELETE",
     }).then((res) => {
       res.status === 202 ? getAllPhotos() : console.error(res.status);
