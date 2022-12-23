@@ -27,7 +27,7 @@ export default function CreateAlbum() {
     <Form
       onSubmit={handleSubmit}
       style={{ maxWidth: "720px" }}
-      className="d-flex form"
+      className="d-flex"
     >
       <Form.Control
         type="search"
@@ -37,7 +37,9 @@ export default function CreateAlbum() {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <Button variant="outline-success">New Album</Button>
+      <Button onClick={handleSubmit} variant="outline-success">
+        New Album
+      </Button>
     </Form>
   );
 }

@@ -9,7 +9,8 @@ import FilledLikeBtn from "@mui/icons-material/Favorite";
 
 export default function AlbumPhoto() {
   const { albumId, photoId } = useParams();
-  const albumPhotoId = +photoId.charAt(5);
+  const albumPhotoId = Number(photoId.split("photo").join(""));
+  console.log(+albumPhotoId);
 
   const navigate = useNavigate();
 
@@ -57,18 +58,23 @@ export default function AlbumPhoto() {
             className="mt-1"
             onClick={() => removeFromAlbum(albumPhotoId)}
           >
-            Remove from {allAlbums[indexOfAlbum].name}
+            Remove from{" "}
+            {allAlbums[indexOfAlbum] ? allAlbums[indexOfAlbum].name : "Album"}
           </Button>
-          {like.isLiked ? (
-            <FilledLikeBtn
-              className="mx-5 like-btn"
-              onClick={() => likePhoto(+albumPhotoId)}
-            />
+          {like ? (
+            like.isLiked ? (
+              <FilledLikeBtn
+                className="mx-5 like-btn"
+                onClick={() => likePhoto(+albumPhotoId)}
+              />
+            ) : (
+              <LikeBtn
+                className="mx-5"
+                onClick={() => likePhoto(+albumPhotoId)}
+              />
+            )
           ) : (
-            <LikeBtn
-              className="mx-5"
-              onClick={() => likePhoto(+albumPhotoId)}
-            />
+            <h2>Sorry, there is an error :(</h2>
           )}
         </div>
       </div>
